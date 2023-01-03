@@ -2,39 +2,40 @@ package controllers;
 
 import io.javalin.http.Context;
 
+import io.javalin.http.HttpCode;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import kong.unirest.HttpStatus;
 import models.Items;
+import scrapper.PicknPayScrapper;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class ItemsController {
-    private static Items items;
+    private static final ArrayList<Items> items = new ArrayList<>();
 
-    //Mock Store data
-    final static List<String> store = List.of(
-            "Sasko brown bread R20",
-            "Vanilla cake R100",
-            "Golden Apples R50"
-    );
-
-    public static void processItem(Context ctx){
+    public static void processItem(Context ctx) throws InterruptedException {
 
         String itemToSearchFor = ctx.body();
 
-        //TODO: @Kwanele Do your magic bellow
+        HashMap<String, Double> foundItems = PicknPayScrapper.searchItems(itemToSearchFor);
 
-        String found = store.stream().filter( i -> i.contains(itemToSearchFor))
-                .findFirst().orElse(null);
-        if (found != null){
-            String description = found.split("R")[0];
-            String price = found.split("R")[1];
-
-            ctx.json( items = new Items(description,price));
+        //TODO: implement a better method to handle errors
+        if (foundItems.size() >=1){
+            foundItems.forEach((description, price) -> {
+                items.add(new Items(description,price));
+            });
+            ctx.json(HttpStatus.OK);
+        }
+        else {
+            ctx.json(HttpStatus.NOT_FOUND);
         }
     }
 
     public static void viewItem(Context ctx){
-        ctx.json(Objects.requireNonNullElseGet(items, () -> new Items("Empty", "None")));
+        ctx.json(Objects.requireNonNullElseGet(items, () -> new Items("Empty", 0.00)));
     }
 }

@@ -2,23 +2,23 @@ package models;
 
 public class Items {
     private final String description;
-    private final String price;
+    private final double price;
 
-    public Items(String description, String price) {
+    public Items(String description, double price) {
         this.description = description;
         this.price = price;
     }
 
     public Items() {
         this.description = "description";
-        this.price = "price";
+        this.price = 0.00;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
