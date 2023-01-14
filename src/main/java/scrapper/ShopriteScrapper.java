@@ -15,8 +15,9 @@ public class ShopriteScrapper {
     public static HashMap<String, Double> searchItems(String theItem) throws InterruptedException {
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         options.addArguments("start-maximized");
+        options.addArguments("--no-sandbox");
 
         WebDriver driver = new ChromeDriver(options);
         HashMap<String, Double> Items = new HashMap<>();
@@ -26,14 +27,16 @@ public class ShopriteScrapper {
 
             TimeUnit.SECONDS.sleep(5);
 
-            // Enter text "q" and perform keyboard action "Enter"
-            driver.findElement(By.className("pdp")).click();
+//            // Enter text "q" and perform keyboard action "Enter"
+//            driver.findElement(By.className("pdp")).click();
+//
+//            TimeUnit.SECONDS.sleep(5);
 
-            TimeUnit.SECONDS.sleep(5);
+            List<WebElement> description = driver.findElements(
+                    By.className("item-product__details")
+            );
 
-            List<WebElement> description = driver.findElements(By.className("pdp__name"));
-
-            List<WebElement> prices = driver.findElements(By.className("special-price"));
+            List<WebElement> prices = driver.findElements(By.className("special-price__price"));
 
             // description and prices are assumed to have the same size
             for (int i = 0; i< description.size(); i++){
