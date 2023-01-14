@@ -28,14 +28,17 @@ public class WooliesScrapper {
 
             TimeUnit.SECONDS.sleep(5);
 
-            // Enter text "q" and perform keyboard action "Enter"
-            driver.findElement(By.className("cookie-banner-accept")).click();
-
-            TimeUnit.SECONDS.sleep(5);
+//            TODO: Sometimes cookies are not on screen so it cant find them
+//            // Enter text "q" and perform keyboard action "Enter"
+//            driver.findElement(By.className("cookie-banner-accept")).click();
+//
+//            TimeUnit.SECONDS.sleep(5);
 
             List<WebElement> description = driver.findElements(By.className("range--title"));
 
             List<WebElement> prices = driver.findElements(By.className("product-card__actions"));
+
+//            TODO: Sometimes prices and description are not the same size which crashes, e.g seaching for bread
 
 //             description and prices are assumed to have the same size
             for (int i = 0; i< description.size(); i++){

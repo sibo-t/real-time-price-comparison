@@ -32,9 +32,9 @@ public class Server {
 
     private Javalin configureHttpServer(){
         server = Javalin.create()
-                .post("/item", ItemsController::processItem)
-                .get("/item", ItemsController::viewItem)
-                .get("/", ctx -> ctx.result("This will be the landing"));
+                .post("/item", ItemsController::findtems)
+                .post("/item/{store}", ItemsController::findtem)
+                .get("/item", ItemsController::viewItem);
         return server;
     }
 
