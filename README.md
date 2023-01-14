@@ -23,6 +23,11 @@ where snowball is the desired item.
 `curl -X 'GET'   'http://localhost:9000/item'   -H 'accept: application/json'`
 to see the list of Items.
 
+
+## push using makefile
+`make git m="your message"`
+
+
 ## HostLocation
 `http://localhost:9000/`
 
