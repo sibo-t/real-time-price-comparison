@@ -12,14 +12,17 @@ public class ShopriteScrapperTest {
     void searchForOmo(){
         HashMap<String,Double> item = new HashMap<>();
         try {
-            item = PicknPayScrapper.searchItems("omo");
+            item = ShopriteScrapper.searchItems("omo");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         Assertions.assertTrue(!item.isEmpty());
+//
+//        Assertions.assertTrue(!item.containsKey(""));
 
+//        Assertions.assertEquals("hgh", item.keySet());
         //I did things
-        Assertions.assertEquals(42.99, item.get("Omo Multiactive Washing Powder 1kg"));
+        Assertions.assertEquals(13.99, item.get("Omo Hand Washing Powder Detergent 300g"));
     }
     
 }
