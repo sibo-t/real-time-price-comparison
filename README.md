@@ -1,5 +1,8 @@
 # real-time-price-comparison
 
+## Description
+This is an API which automatically search grocery stores for a specific item, and returns a response for a client to use.
+
 ## Project Status
 This project is currently in development.
 
