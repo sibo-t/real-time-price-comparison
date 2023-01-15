@@ -1,6 +1,6 @@
 package scrapper;
 
-public class StoreScrapper {
+abstract class StoreScrapper {
 
     protected static double convertToDouble(String price){
         StringBuilder rand = new StringBuilder();
@@ -16,4 +16,5 @@ public class StoreScrapper {
         }
         return Double.parseDouble(rand.toString())+Double.parseDouble(cent.toString());
     }
+
 }
