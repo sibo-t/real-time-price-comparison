@@ -1,0 +1,19 @@
+package scrapper;
+
+public class StoreScrapper {
+
+    protected static double convertToDouble(String price){
+        StringBuilder rand = new StringBuilder();
+        StringBuilder cent = new StringBuilder("00.");
+
+        for (int i = 1; i<price.length();i++){
+            if(i<price.length()-2){
+                rand.append(price.charAt(i));
+            }
+            else{
+                cent.append(price.charAt(i));
+            }
+        }
+        return Double.parseDouble(rand.toString())+Double.parseDouble(cent.toString());
+    }
+}
