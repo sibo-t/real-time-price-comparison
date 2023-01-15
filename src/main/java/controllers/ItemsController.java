@@ -26,7 +26,8 @@ public class ItemsController{
         processItem(itemToSearchFor);
 
         if (!itemsWool.isEmpty() || !itemsPnp.isEmpty() ){
-            ctx.json(Map.of("result","Done"));
+            ctx.json(Map.of("result","Done", "items",Map.of("woolworths",itemsWool.size()
+                    ,"pnp",itemsPnp.size(),"shoprite",itemsShop.size())));
         }else {
             ctx.json(Map.of("result","ERROR"));
         }
@@ -64,6 +65,16 @@ public class ItemsController{
             }
         });
 
+        Thread shopProcess = new Thread(() -> {
+            try {
+                HashMap<String, Double> foundItemsShop = ShopriteScrapper.searchItems(itemToSearchFor);
+                itemsShop.clear();
+                createItemObject(foundItemsShop,itemsShop);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         if (store.length > 0){
             switch (store[0]){
                 case "pnp":
@@ -74,14 +85,19 @@ public class ItemsController{
                     woolProcess.start();
                     woolProcess.join();
                     break;
+                case "shop":
+                    shopProcess.start();
+                    shopProcess.join();
+                    break;
             }
         }
         else {
             woolProcess.start();
             pnpProcess.start();
-//        Waits for the threads to finish before moving on
+            shopProcess.start();
             woolProcess.join();
             pnpProcess.join();
+            shopProcess.join();
         }
     }
 
@@ -95,8 +111,10 @@ public class ItemsController{
     }
 
     public static void viewItem(Context ctx){
-        results.put("wool",itemsWool);
+        results.put("woolworths",itemsWool);
         results.put("pnp", itemsPnp);
+        results.put("shoprite", itemsShop);
+
         ctx.json(results);
     }
 }
