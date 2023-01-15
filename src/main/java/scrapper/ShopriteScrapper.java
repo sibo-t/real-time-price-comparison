@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ShopriteScrapper {
+public class ShopriteScrapper extends StoreScrapper{
 
     public static HashMap<String, Double> searchItems(String theItem) throws InterruptedException {
 
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("start-maximized");
         options.addArguments("--no-sandbox");
 
@@ -47,21 +47,6 @@ public class ShopriteScrapper {
             driver.quit();
         }
         return Items;
-    }
-
-    private static double convertToDouble(String price){
-        StringBuilder rand = new StringBuilder();
-        StringBuilder cent = new StringBuilder("00.");
-
-        for (int i = 1; i<price.length();i++){
-            if(i<price.length()-2){
-                rand.append(price.charAt(i));
-            }
-            else{
-                cent.append(price.charAt(i));
-            }
-        }
-        return Double.parseDouble(rand.toString())+Double.parseDouble(cent.toString());
     }
     
 }
