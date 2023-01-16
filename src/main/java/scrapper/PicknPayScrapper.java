@@ -14,12 +14,7 @@ public class PicknPayScrapper extends StoreScrapper{
 
     public static HashMap<String, Double> searchItems(String theItem) throws InterruptedException {
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("start-maximized");
-        options.addArguments("--no-sandbox");
-
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = initializeDriver();
         HashMap<String, Double> Items = new HashMap<>();
         try {
             // Navigate to Url
