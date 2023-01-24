@@ -24,26 +24,33 @@ public class WooliesScrapper extends StoreScrapper{
 
             TimeUnit.SECONDS.sleep(5);
 
-//            TODO: Sometimes cookies are not on screen so it cant find them
-//            // Enter text "q" and perform keyboard action "Enter"
-//            driver.findElement(By.className("cookie-banner-accept")).click();
-//
-//            TimeUnit.SECONDS.sleep(5);
+            //We retrieve both the price and description all at once
+            List<WebElement> descriptionPrice = driver.findElements(By.className("product-list__item"));
 
-            List<WebElement> description = driver.findElements(By.className("range--title"));
+            String[] firstPair = descriptionPrice.remove(0).getText().split("\n");
+            Items.put(firstPair[0], convertToDouble(firstPair[firstPair.length-1]));
+            for (WebElement x:descriptionPrice
+                 ) {
+                String[] descriptionPlusPrice = x.getText().split("\n");
 
-            List<WebElement> prices = driver.findElements(By.className("product-card__actions"));
-
-//            TODO: Sometimes prices and description are not the same size which crashes, e.g seaching for bread
-
-//             description and prices are assumed to have the same size
-            for (int i = 0; i< description.size(); i++){
-
-                if (!Items.containsKey((description.get(i).getText()))) {
-                    Items.put(description.get(i).getText(), convertToDouble(prices.get(i).getText()));
+                if(descriptionPlusPrice.length==5){
+                    Items.put(descriptionPlusPrice[2], convertToDouble(descriptionPlusPrice[descriptionPlusPrice.length-1]));
                 }
-            }
+                if(descriptionPlusPrice.length==4){
+                    Items.put(descriptionPlusPrice[1], convertToDouble(descriptionPlusPrice[descriptionPlusPrice.length-1]));
+                }
+                if(descriptionPlusPrice.length==3){
+                    //Sometimes there is an issue of "" in first index
+                    int indicator = descriptionPlusPrice[0].length();
+                    if(indicator==1){
+                        Items.put(descriptionPlusPrice[1], convertToDouble(descriptionPlusPrice[descriptionPlusPrice.length-1]));
+                    }
+                    else{
+                        Items.put(descriptionPlusPrice[0], convertToDouble(descriptionPlusPrice[descriptionPlusPrice.length-1]));
+                    }
+                }
 
+            }
         } finally {
             driver.quit();
         }

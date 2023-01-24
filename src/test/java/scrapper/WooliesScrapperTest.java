@@ -10,14 +10,14 @@ public class WooliesScrapperTest {
     void searchForCake(){
         HashMap<String,Double> product = new HashMap<>();
         try {
-            product = WooliesScrapper.searchItems("Madeira Butter Cake");
+            product = WooliesScrapper.searchItems("cake");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         Assertions.assertTrue(!product.isEmpty());
 
         //I did things
-        Assertions.assertEquals(52.99, product.get("Madeira Butter Cake Loaf 260 g"));
+        Assertions.assertEquals(209.99, product.get("Carrot Gateau Cake 1 kg"));
 
     }
 
