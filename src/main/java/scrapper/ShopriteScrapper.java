@@ -21,19 +21,15 @@ public class ShopriteScrapper extends StoreScrapper{
             driver.get("https://www.shoprite.co.za/search/all?q="+theItem);
 
             TimeUnit.SECONDS.sleep(5);
-
-//            // Enter text "q" and perform keyboard action "Enter"
-//            driver.findElement(By.className("pdp")).click();
-//
-//            TimeUnit.SECONDS.sleep(5);
-
+            
+           //Retrieve the descriptions and prices of searched items
             List<WebElement> description = driver.findElements(
                     By.className("item-product__details")
             );
 
             List<WebElement> prices = driver.findElements(By.className("special-price__price"));
 
-            // description and prices are assumed to have the same size
+            // description and prices should have the same size
             for (int i = 0; i< description.size(); i++){
                 String price = prices.get(i).getText();
                 Items.put(description.get(i).getText(),convertToDouble(price));
