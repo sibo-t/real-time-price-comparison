@@ -22,16 +22,17 @@ public class PicknPayScrapper extends StoreScrapper{
 
             TimeUnit.SECONDS.sleep(5);
 
-            // Enter text "q" and perform keyboard action "Enter"
+            // Close cookies popup
             driver.findElement(By.name("policiesCloseButton")).click();
 
             TimeUnit.SECONDS.sleep(5);
 
+            //Retrieve the descriptions and prices matching our search
             List<WebElement> description = driver.findElements(By.className("item-name"));
 
             List<WebElement> prices = driver.findElements(By.className("item-price"));
 
-            // description and prices are assumed to have the same size
+            // description and prices have the same size
             for (int i = 0; i< description.size(); i++){
                 //Handles new price and old price error when casting to double
                 String[] price = prices.get(i).getText().split(" ");
