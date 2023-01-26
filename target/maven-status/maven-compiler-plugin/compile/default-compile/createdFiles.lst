@@ -1,0 +1,8 @@
+scrapper/PicknPayScrapper.class
+controllers/ItemsController.class
+scrapper/WooliesScrapper.class
+scrapper/ShopriteScrapper.class
+Server.class
+models/Items.class
+controllers/ScrapperProcess.class
+scrapper/StoreScrapper.class

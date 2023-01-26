@@ -35,7 +35,8 @@ public class ShopriteScrapper extends StoreScrapper{
 
             // description and prices are assumed to have the same size
             for (int i = 0; i< description.size(); i++){
-                Items.put(description.get(i).getText(),convertToDouble(prices.get(i).getText()));
+                String price = prices.get(i).getText();
+                Items.put(description.get(i).getText(),convertToDouble(price));
             }
 
         } finally {

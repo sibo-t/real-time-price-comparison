@@ -33,7 +33,10 @@ public class PicknPayScrapper extends StoreScrapper{
 
             // description and prices are assumed to have the same size
             for (int i = 0; i< description.size(); i++){
-                Items.put(description.get(i).getText(),convertToDouble(prices.get(i).getText()));
+                //Handles new price and old price error when casting to double
+                String[] price = prices.get(i).getText().split(" ");
+
+                Items.put(description.get(i).getText(),convertToDouble(price[0]));
             }
 
         } finally {
