@@ -25,6 +25,7 @@ abstract class StoreScrapper {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
+        options.addArguments("−−incognito");
         options.addArguments("start-maximized");
         options.addArguments("--no-sandbox");
 
