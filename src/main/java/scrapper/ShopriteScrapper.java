@@ -20,8 +20,6 @@ public class ShopriteScrapper extends StoreScrapper{
             // Navigate to Url
             driver.get("https://www.shoprite.co.za/search/all?q="+theItem);
 
-            TimeUnit.SECONDS.sleep(5);
-            
            //Retrieve the descriptions and prices of searched items
             List<WebElement> description = driver.findElements(
                     By.className("item-product__details")
@@ -32,6 +30,11 @@ public class ShopriteScrapper extends StoreScrapper{
             // description and prices should have the same size
             for (int i = 0; i< description.size(); i++){
                 String price = prices.get(i).getText();
+
+                //Avoid empty string
+                if(price.equals("")){
+                    price = "R0,00";
+                }
                 Items.put(description.get(i).getText(),convertToDouble(price));
             }
 

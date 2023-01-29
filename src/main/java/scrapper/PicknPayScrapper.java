@@ -20,12 +20,8 @@ public class PicknPayScrapper extends StoreScrapper{
             // Navigate to Url
             driver.get("https://www.pnp.co.za/pnpstorefront/pnp/en/search/?text="+theItem);
 
-            TimeUnit.SECONDS.sleep(5);
-
             // Close cookies popup
             driver.findElement(By.name("policiesCloseButton")).click();
-
-            TimeUnit.SECONDS.sleep(5);
 
             //Retrieve the descriptions and prices matching our search
             List<WebElement> description = driver.findElements(By.className("item-name"));

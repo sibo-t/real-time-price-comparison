@@ -22,8 +22,6 @@ public class WooliesScrapper extends StoreScrapper{
             // Navigate to Url
             driver.get("https://www.woolworths.co.za/cat?Ntt=" + theItem);
 
-            TimeUnit.SECONDS.sleep(5);
-
             //We retrieve both the price and description all at once
             List<WebElement> descriptionPrice = driver.findElements(By.className("product-list__item"));
 
